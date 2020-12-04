@@ -7,6 +7,9 @@
 # useful for handling different item types with a single interface
 # from itemadapter import ItemAdapter
 # from avaroapp.models import Movie
+from avaroapp.models import Movie
+
+
 
 class MoviePipeline:
     def process_item(self, item, spider):
@@ -14,7 +17,7 @@ class MoviePipeline:
         # movie.title = item['title']
         # movie.movie_url = item['movie_url']
         # movie.save()
-        # print("Pipeline " + item['movie_url'])
+        print("Pipeline " + item['movie_url'])
+        item.save()
         return item
-
 

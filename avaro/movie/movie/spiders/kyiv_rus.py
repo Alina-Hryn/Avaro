@@ -1,11 +1,34 @@
 import scrapy
+from avaroapp.models import Movie
+# from movie.movie.items import MovieItem
+from ..items import MovieItem
+from scrapy.crawler import CrawlerProcess
 
 
 class KyivRusSpider(scrapy.Spider):
     name = 'kyiv_rus'
-    allowed_domains = ['https://kievrus.megakino.com.ua/cinema/events']
-    start_urls = ['http://https://kievrus.megakino.com.ua/cinema/events/']
+    start_urls = ['https://kievrus.megakino.com.ua/cinema/events/']
 
     def parse(self, response):
+        for href in response.css(".event-info-list a").css("a").xpath("@href"):
+            url = response.urljoin(href.extract())
+            yield scrapy.Request(url, callback=self.parse_dir_contents)
         # response.css(".event-info-list a").css("a").xpath("@href").extract()
-        pass
+
+    def parse_dir_contents(self, response):
+        for sel in response.css('.event-background-description'):
+            item = MovieItem()
+            item['title'] = sel.css('h1::text').extract_first()
+            item['movie_url'] = response.url
+            print(item)
+            yield item
+
+
+# if __name__ == '__main__':
+#     process = CrawlerProcess()
+#     process.crawl(KyivRusSpider)
+#     process.start()
+
+    # pipeline = MoviePipeline()
+    # pipeline.process_item()
+

@@ -1,5 +1,5 @@
 import scrapy
-from ..items import MovieItem
+from movie.movie.items import MovieItem
 
 class CinemaCitiSpider(scrapy.Spider):
     name = 'cinemaciti'
@@ -12,16 +12,6 @@ class CinemaCitiSpider(scrapy.Spider):
         all_movies = response.css('.poster__info')
         all_urls = response.css(".poster__name").xpath("@href").extract()
         yield from response.follow_all(all_urls, self.parse_movie)
-        # for movie in all_movies:
-        #     title = movie.css('.poster__name::text').extract_first()
-        # title = response.xpath("//a[@class='poster__name']/text()").extract()
-        # movie_url = movie.css(".poster__name").xpath("@href").extract_first()
-        # movie_url = response.css(".poster__name").xpath("@href").extract()
-        # items['title'] = title
-        # items['movie_url'] = movie_url
-        # items['year'] = year
-        #
-        # yield items
 
     def parse_movie(self, response):
         items = MovieItem()

@@ -9,8 +9,8 @@
 
 BOT_NAME = 'movie'
 
-SPIDER_MODULES = ['movie.spiders']
-NEWSPIDER_MODULE = 'movie.spiders'
+SPIDER_MODULES = ['movie.movie.spiders']
+NEWSPIDER_MODULE = 'movie.movie.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 # USER_AGENT = 'movie (+http://www.yourdomain.com)'
@@ -49,7 +49,6 @@ ROBOTSTXT_OBEY = True
 # }
 
 
-
 # PROXY_POOL_ENABLED = True
 #
 # DOWNLOADER_MIDDLEWARES = {
@@ -58,8 +57,6 @@ ROBOTSTXT_OBEY = True
 #     'scrapy_proxy_pool.middlewares.ProxyPoolMiddleware': 610,
 #     'scrapy_proxy_pool.middlewares.BanDetectionMiddleware': 620,
 # }
-
-
 
 
 # Enable or disable downloader middlewares
@@ -77,7 +74,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'movie.pipelines.MoviePipeline': 300,
+    'movie.movie.pipelines.MoviePipeline': 300,
     # 'movie.pipelines.': 300,
 }
 

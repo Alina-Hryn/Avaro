@@ -1,21 +1,31 @@
 import scrapy
+# from movie.movie.items import MovieItem
 from ..items import MovieItem
-
+from scrapy.crawler import CrawlerProcess
 
 class LiraSpider(scrapy.Spider):
     name = 'lira'
     allowed_domains = ['lira.megakino.com.ua/']
     start_urls = ['http://lira.megakino.com.ua/cinema/events/']
-    next_words = []
-    def parse(self, response):
-        all_links = response.css(".event-info-list a").css("a").extract()[0]
-        next_words = all_links
-        yield from response.follow_all(all_links, self.parse_movie)
-        print(next_words)
 
-    def parse_movie(self, response):
-        items = MovieItem()
-        # items['title'] = response.css(".movie__about:nth-child(1) p::text").extract_first()
-        # items['movie_url'] = response.css(".movie__about:nth-child(1) p::text").extract_first()
-        items['title'] = response.css("h1::text").extract_first()
-        yield items
+    def parse(self, response):
+        for href in response.css(".event-info-list a").css("a").xpath("@href"):
+            url = response.urljoin(href.extract())
+            yield scrapy.Request(url, callback=self.parse_dir_contents)
+        # response.css(".event-info-list a").css("a").xpath("@href").extract()
+
+    def parse_dir_contents(self, response):
+        print(response.css('.event-background-description'))
+        for sel in response.css('.event-background-description'):
+            print()
+            item = MovieItem()
+            item['title'] = sel.css('h1::text').extract_first()
+            item['movie_url'] = response.url
+            print(item)
+            yield item
+
+#
+# if __name__ == '__main__':
+#     process = CrawlerProcess()
+#     process.crawl(LiraSpider)
+#     process.start()
