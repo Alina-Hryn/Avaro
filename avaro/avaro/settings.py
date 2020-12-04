@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'avaroapp.apps.AvaroappConfig',
     'rest_framework',
+    'django_cron',
 ]
 
 MIDDLEWARE = [
