@@ -19,6 +19,6 @@ from django.urls import path, include
 import avaroapp
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+#    path('admin/', admin.site.urls),
     path('', include('avaroapp.urls')),
 ]
