@@ -7,7 +7,10 @@ from scrapy.crawler import CrawlerProcess
 
 class KyivRusSpider(scrapy.Spider):
     name = 'kyiv_rus'
-    start_urls = ['https://kievrus.megakino.com.ua/cinema/events/']
+    start_urls = ['https://kievrus.megakino.com.ua/cinema/events/',
+                  'https://leypzig.megakino.com.ua/cinema/events/',
+                  'http://lira.megakino.com.ua/cinema/events/',
+                  'https://shevchenko.megakino.com.ua/cinema/events/']
 
     def parse(self, response):
         for href in response.css(".event-info-list a").css("a").xpath("@href"):
@@ -20,15 +23,14 @@ class KyivRusSpider(scrapy.Spider):
             item = MovieItem()
             item['title'] = sel.css('h1::text').extract_first()
             item['link'] = response.url
+            item['description'] = sel.css('li~ li+ li p::text').extract_first()
             print(item)
             yield item
-
 
 # if __name__ == '__main__':
 #     process = CrawlerProcess()
 #     process.crawl(KyivRusSpider)
 #     process.start()
 
-    # pipeline = MoviePipeline()
-    # pipeline.process_item()
-
+# pipeline = MoviePipeline()
+# pipeline.process_item()

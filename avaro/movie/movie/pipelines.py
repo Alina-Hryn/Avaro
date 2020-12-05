@@ -10,14 +10,15 @@
 from avaroapp.models import Movie
 
 
-
 class MoviePipeline:
     def process_item(self, item, spider):
-        # movie = Movie()
-        # movie.title = item['title']
-        # movie.link = item['link']
-        # movie.save()
-        print("Pipeline " + item['link'])
+        try:
+            movie = Movie.objects.get(title=item['title'])
+            # Already exists, just update it
+            instance = item.save(commit=False)
+            instance.pk = movie.pk
+        except Movie.DoesNotExist:
+            pass
         item.save()
         return item
 
