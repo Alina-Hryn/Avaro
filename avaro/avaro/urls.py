@@ -20,5 +20,5 @@ import avaroapp
 
 urlpatterns = [
     #    path('admin/', admin.site.urls),
-    path('', include('avaroapp.urls')),
+    path('api/', include('avaroapp.urls')),
 ]
