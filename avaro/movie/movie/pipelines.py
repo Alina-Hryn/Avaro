@@ -7,7 +7,7 @@
 # useful for handling different item types with a single interface
 # from itemadapter import ItemAdapter
 # from avaroapp.models import Movie
-from avaroapp.models import Movie
+from avaroapp.models import Movie, Cinema
 
 
 class MoviePipeline:
@@ -22,3 +22,15 @@ class MoviePipeline:
         item.save()
         return item
 
+
+class CinemaPipeline:
+    def process_item(self, item, spider):
+        try:
+            movie = Cinema.objects.get(name=item['name'])
+            # Already exists, just update it
+            instance = item.save(commit=False)
+            instance.pk = movie.pk
+        except Cinema.DoesNotExist:
+            pass
+        item.save()
+        return item

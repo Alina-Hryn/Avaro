@@ -4,10 +4,16 @@ from django.db import models
 # Create your models here.
 
 class Cinema(models.Model):
+    cinema_network = models.CharField(max_length=150, blank= True, null=True)
     name = models.CharField(max_length=150)
     address = models.TextField(blank=True)
 
     link = models.URLField(max_length=200, blank=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['cinema_network', 'name'], name='cinema_name')
+        ]
 
 
 class Movie(models.Model):

@@ -75,6 +75,7 @@ ROBOTSTXT_OBEY = True
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     'movie.movie.pipelines.MoviePipeline': 300,
+    'movie.movie.pipelines.CinemaPipeline': 100,
     # 'movie.pipelines.': 300,
 }
 
