@@ -19,7 +19,7 @@ class KyivRusSpider(scrapy.Spider):
         for sel in response.css('.event-background-description'):
             item = MovieItem()
             item['title'] = sel.css('h1::text').extract_first()
-            item['movie_url'] = response.url
+            item['link'] = response.url
             print(item)
             yield item
 

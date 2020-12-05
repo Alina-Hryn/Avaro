@@ -15,9 +15,9 @@ class Command(BaseCommand):
         crawler_settings.setmodule(my_settings)
         process = CrawlerProcess(crawler_settings)
 
-        for spider_name in process.spider_loader.list():
-            print("Running spider %s" % (spider_name))
-            process.crawl(spider_name, query="dvh")  # query dvh is custom argument used in your scrapy
+        # for spider_name in process.spider_loader.list():
+        #     print("Running spider %s" % (spider_name))
+        #     process.crawl(spider_name, query="dvh")  # query dvh is custom argument used in your scrapy
 
-        # process.crawl(KyivRusSpider)
+        process.crawl(KyivRusSpider)
         process.start()

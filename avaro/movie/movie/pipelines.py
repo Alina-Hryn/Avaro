@@ -15,9 +15,9 @@ class MoviePipeline:
     def process_item(self, item, spider):
         # movie = Movie()
         # movie.title = item['title']
-        # movie.movie_url = item['movie_url']
+        # movie.link = item['link']
         # movie.save()
-        print("Pipeline " + item['movie_url'])
+        print("Pipeline " + item['link'])
         item.save()
         return item
 

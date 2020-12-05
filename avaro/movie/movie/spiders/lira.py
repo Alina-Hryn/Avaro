@@ -20,7 +20,7 @@ class LiraSpider(scrapy.Spider):
             print()
             item = MovieItem()
             item['title'] = sel.css('h1::text').extract_first()
-            item['movie_url'] = response.url
+            item['link'] = response.url
             print(item)
             yield item
 
