@@ -13,6 +13,7 @@ from avaroapp.models import Movie, Seance, CinemaMovie, Cinema
 class MoviePipeline:
     def process_item(self, item, spider):
         try:
+            item['title'] = item['title'].strip().upper()
             movie = Movie.objects.get(title=item['title'])
             # # Already exists, just update it
             instance = item.save(commit=False)
@@ -28,7 +29,7 @@ class MoviePipeline:
 class CinemaMoviePipeline:
     def process_item(self, item, spider):
         try:
-            cinema_movie = CinemaMovie.objects.first()
+            cinema_movie = CinemaMovie.objects.get(link=item['link'])
             # # Already exists, just update it
             instance = item.save(commit=False)
             instance.pk = cinema_movie.pk

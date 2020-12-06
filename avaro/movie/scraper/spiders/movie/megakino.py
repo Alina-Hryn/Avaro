@@ -24,5 +24,6 @@ class MegakinoSpider(scrapy.Spider):
             item['trailer'] = sel.css("a.trailer").xpath("@href").extract_first()
             item['description'] = sel.css('li:nth-child(4) p::text').extract_first()
             item['photo'] = sel.css('.right-event-description img').xpath('@src').extract_first()
+
             yield item
 

@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 
 class Cinema(models.Model):
-    cinema_network = models.CharField(max_length=150, blank= True, null=True)
+    cinema_network = models.CharField(max_length=150, blank=True, null=True)
     location = models.CharField(max_length=150)
     address = models.TextField(blank=True)
 
@@ -24,7 +24,7 @@ class Movie(models.Model):
     duration = models.TimeField(blank=True, null=True)
     release = models.DateField(blank=True, null=True)
     rating = models.FloatField(blank=True, null=True)
-    photo = models.ImageField(blank=True,null=True)
+    photo = models.ImageField(blank=True, null=True)
     trailer = models.URLField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     country = models.CharField(max_length=150, blank=True, null=True)
@@ -34,8 +34,8 @@ class Movie(models.Model):
 class CinemaMovie(models.Model):
     movie_id = models.ForeignKey(Movie, on_delete=models.CASCADE)
     cinema_id = models.ForeignKey(Cinema, on_delete=models.CASCADE)
-    start_date = models.DateField(blank=True)
-    end_date = models.DateField(blank=True)
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
 
     link = models.URLField(max_length=200, blank=True)
 
