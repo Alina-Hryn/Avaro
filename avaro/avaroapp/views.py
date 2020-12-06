@@ -6,7 +6,7 @@ from .models import *
 from rest_framework import viewsets, permissions, generics, mixins
 from .serializers import *
 from django_filters.rest_framework import DjangoFilterBackend
-from .service import MovieFilter
+from .service import *
 
 
 class MovieViewSet(viewsets.ModelViewSet):
@@ -21,7 +21,8 @@ class MovieViewSet(viewsets.ModelViewSet):
 
 
 class CinemaViewSet(viewsets.ModelViewSet):
-    lookup_fields = ('id', 'year')
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = CinemaFilter
     queryset = Cinema.objects.all()
     permission_classes = [
         permissions.AllowAny

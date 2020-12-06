@@ -5,7 +5,7 @@ from django.db import models
 
 class Cinema(models.Model):
     cinema_network = models.CharField(max_length=150, blank= True, null=True)
-    name = models.CharField(max_length=150)
+    location = models.CharField(max_length=150)
     address = models.TextField(blank=True)
 
     link = models.URLField(max_length=200, blank=True)

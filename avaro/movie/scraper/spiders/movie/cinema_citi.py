@@ -2,7 +2,7 @@ import scrapy
 from movie.scraper.items import MovieItem
 
 class CinemaCitiSpider(scrapy.Spider):
-    name = 'cinemaciti'
+    name = 'cinemaciti_movie'
     start_urls = [
         'https://cinemaciti.ua/'
     ]
