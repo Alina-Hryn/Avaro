@@ -1,1 +1,1 @@
-web: gunicorn avaro.wsgi
+web: gunicorn avaro:app --log-file=-
