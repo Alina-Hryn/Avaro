@@ -5,6 +5,7 @@ from scrapy.crawler import CrawlerProcess
 from scrapy.settings import Settings
 
 from movie.scraper import settings as my_settings
+from movie.scraper.spiders.movie.multiplex import MultiplexSpider
 
 
 class Command(BaseCommand):
@@ -20,5 +21,5 @@ class Command(BaseCommand):
         #     print("Running spider %s" % (spider_name))
         #     process.crawl("cinemaciti", query="dvh")  # query dvh is custom argument used in your scrapy
 
-        process.crawl(CinemaCitiSpider)
+        process.crawl(MultiplexSpider)
         process.start()

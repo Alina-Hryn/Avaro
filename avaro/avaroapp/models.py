@@ -23,10 +23,11 @@ class Movie(models.Model):
     genre = models.IntegerField(blank=True, null=True)
     duration = models.TimeField(blank=True, null=True)
     release = models.DateField(blank=True, null=True)
-    rating = models.IntegerField(blank=True, null=True)
+    rating = models.FloatField(blank=True, null=True)
     photo = models.ImageField(blank=True,null=True)
     trailer = models.URLField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
+    country = models.CharField(max_length=150, blank=True, null=True)
     link = models.URLField(max_length=200, blank=True, null=True)
 
 
