@@ -21,5 +21,5 @@ class Command(BaseCommand):
         #     print("Running spider %s" % (spider_name))
         #     process.crawl("cinemaciti", query="dvh")  # query dvh is custom argument used in your scrapy
 
-        process.crawl(MultiplexSpider)
+        process.crawl(MegakinoSpider)
         process.start()

@@ -30,6 +30,16 @@ class CinemaViewSet(viewsets.ModelViewSet):
     serializer_class = CinemaSerializer
 
 
+class CinemaMovieViewSet(viewsets.ModelViewSet):
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = CinemaMovieFilter
+    queryset = CinemaMovie.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serializer_class = CinemaMovieSerializer
+
+
 class SeanceViewSet(viewsets.ModelViewSet):
     lookup_field = 'id'
     queryset = Seance.objects.all()

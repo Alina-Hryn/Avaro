@@ -1,5 +1,5 @@
 from django_filters import rest_framework as filters
-from avaroapp.views import Movie, Cinema
+from avaroapp.views import Movie, Cinema, CinemaMovie
 
 
 class CharFilterInFilter(filters.BaseInFilter, filters.CharFilter):
@@ -20,3 +20,12 @@ class MovieFilter(filters.FilterSet):
     class Meta:
         model = Movie
         fields = ['id', 'year']
+
+
+class CinemaMovieFilter(filters.FilterSet):
+    # cinema_id = CharFilterInFilter(field_name='id', lookup_expr='in')
+    # movie_id = CharFilterInFilter(field_name='id', lookup_expr='in')
+
+    class Meta:
+        model = CinemaMovie
+        fields = ['cinema_id', 'movie_id']
