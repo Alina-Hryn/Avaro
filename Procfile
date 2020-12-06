@@ -1,1 +1,3 @@
-web: gunicorn avaro.wsgi:app --log-file=-
+web: gunicorn avaro.wsgi:application --log-file - --log-level debug
+python manage.py collectstatic --noinput
+manage.py migrate
