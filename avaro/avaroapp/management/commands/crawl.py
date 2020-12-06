@@ -1,11 +1,10 @@
 from django.core.management.base import BaseCommand
-from movie.movie.spiders.movie.kyiv_rus import KyivRusSpider
-from movie.movie.spiders.cinema.cinema_citi import CinemaCitiSpider
+from movie.scraper.spiders.movie.kyiv_rus import *
+from movie.scraper.spiders.cinema.cinema_citi import CinemaCitiSpider
 from scrapy.crawler import CrawlerProcess
 from scrapy.settings import Settings
 
-from movie.movie import settings as my_settings
-
+from movie.scraper import settings as my_settings
 
 
 class Command(BaseCommand):
@@ -15,10 +14,11 @@ class Command(BaseCommand):
         crawler_settings = Settings()
         crawler_settings.setmodule(my_settings)
         process = CrawlerProcess(crawler_settings)
-
+        movie_list = ["cinemaciti"]
+        print("QWERTY" + str(len(process.spider_loader.list())))
         # for spider_name in process.spider_loader.list():
         #     print("Running spider %s" % (spider_name))
-        #     process.crawl(spider_name, query="dvh")  # query dvh is custom argument used in your scrapy
+        #     process.crawl("cinemaciti", query="dvh")  # query dvh is custom argument used in your scrapy
 
-        process.crawl(CinemaCitiSpider)
+        # process.crawl(KyivRusSpider)
         process.start()
