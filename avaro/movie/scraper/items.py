@@ -4,15 +4,15 @@
 # https://docs.scrapy.org/en/latest/topics/items.html
 
 from scrapy_djangoitem import DjangoItem
-from avaroapp.models import Movie, Cinema, Seance
+from avaroapp.models import Movie, Seance, CinemaMovie
 
 
 class MovieItem(DjangoItem):
     django_model = Movie
 
 
-class CinemaItem(DjangoItem):
-    django_model = Cinema
+class CinemaMovieItem(DjangoItem):
+    django_model = CinemaMovie
 
 
 class SeanceItem(DjangoItem):
