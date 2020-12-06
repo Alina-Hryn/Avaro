@@ -25,7 +25,7 @@ SECRET_KEY = '*r@da=983*&zt7+e1kpvs!$cv39@jhw#y&f4e@)gxv=y=@7atu'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['avaro-production-server.herokuapp.com']
 
 
 # Application definition
