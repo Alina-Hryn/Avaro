@@ -9,16 +9,17 @@
 # from avaroapp.models import Movie
 from avaroapp.models import Movie, Cinema
 
-
 class MoviePipeline:
     def process_item(self, item, spider):
         try:
             movie = Movie.objects.get(title=item['title'])
-            # Already exists, just update it
+            # # Already exists, just update it
             instance = item.save(commit=False)
             instance.pk = movie.pk
+            instance.save()
         except Movie.DoesNotExist:
             pass
+
         item.save()
         return item
 
@@ -33,5 +34,5 @@ class CinemaPipeline:
             # instance.pk = movie.pk
         except Cinema.DoesNotExist:
             pass
-        item.save()
+        # item.save()
         return item

@@ -4,8 +4,8 @@ from avaroapp.models import Movie
 from movie.scraper.items import MovieItem
 
 
-class KyivRusSpider(scrapy.Spider):
-    name = 'kyiv_rus'
+class MegakinoSpider(scrapy.Spider):
+    name = 'mega-kino'
     start_urls = ['https://kievrus.megakino.com.ua/cinema/events/',
                   'https://leypzig.megakino.com.ua/cinema/events/',
                   'http://lira.megakino.com.ua/cinema/events/',
@@ -21,15 +21,8 @@ class KyivRusSpider(scrapy.Spider):
         for sel in response.css('.event-background-description'):
             item = MovieItem()
             item['title'] = sel.css('h1::text').extract_first()
-            item['link'] = response.url
-            item['description'] = sel.css('li~ li+ li p::text').extract_first()
-            print(item)
+            item['trailer'] = sel.css("a.trailer").xpath("@href").extract_first()
+            item['description'] = sel.css('li:nth-child(4) p::text').extract_first()
+            item['photo'] = sel.css('.right-event-description img').xpath('@src').extract_first()
             yield item
 
-# if __name__ == '__main__':
-#     process = CrawlerProcess()
-#     process.crawl(KyivRusSpider)
-#     process.start()
-
-# pipeline = MoviePipeline()
-# pipeline.process_item()

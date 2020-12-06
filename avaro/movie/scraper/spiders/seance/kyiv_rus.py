@@ -29,7 +29,7 @@ class KyivRusSpider(scrapy.Spider):
 
 # if __name__ == '__main__':
 #     process = CrawlerProcess()
-#     process.crawl(KyivRusSpider)
+#     process.crawl(MegakinoSpider)
 #     process.start()
 
 # pipeline = MoviePipeline()
