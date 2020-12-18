@@ -26,7 +26,7 @@ class CinemaCitiSpider(scrapy.Spider):
         items['trailer'] = response.css("a.trailer").xpath("@href").extract_first()
         items['description'] = response.css('.movie__description p::text').extract_first().strip()
         items['photo'] = 'https://cinemaciti.ua/' + response.css('.movie__img img').xpath('@src').extract_first()
-        items['rating'] = float(response.css('.imdb-rating__current::text').extract_first())
+        # items['rating'] = float(response.css('.imdb-rating__current::text').extract_first())
         items['country'] = response.css('.movie__about:nth-child(2) p::text').extract_first()
 
         movie = Movie.objects.filter(title=items['title']).all()

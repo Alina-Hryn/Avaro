@@ -11,7 +11,7 @@ class MultiplexSpider(scrapy.Spider):
 
     def parse(self, response):
         items = MovieItem()
-        all_urls = response.css(".soon_fm_name").xpath("@href").extract()
+        all_urls = response.css(".soon_fm").xpath("@href").extract()
         yield from response.follow_all(all_urls, self.parse_movie)
 
     def parse_movie(self, response):
@@ -19,13 +19,20 @@ class MultiplexSpider(scrapy.Spider):
         cinema_movie_items = CinemaMovieItem()
         # cinema_movie_items['link'] = response.url
 
-        items['title'] = response.css("#mvi_title::text").extract_first().strip()
-        # items['trailer'] = response.css("a.trailer").xpath("@href").extract_first()
-        items['description'] = response.css('div.movie_description p::text').extract_first()
-        # items['rating'] = float(response.css('li:nth-child(5) .val::text').extract_first())
-        items['country'] = response.css('div.movie_description p::text').extract_first()
+        items['title'] = response.css("#mvi_title::text").extract_first()
+        link = response.css("div.only_video_section").css("h2::attr(data-fullyturl)").extract_first()
+        if link is not None:
+            link = link.split('?', 1)[0].split('/embed/', 1)
+            items['trailer'] = link[0] +'/watch?v=' + link[1]
+        items['description'] = response.css('div.movie_description::text').extract_first()
+        items['photo'] = 'https://multiplex.ua' + response.css(".poster::attr(src)").extract_first()
 
-        movie = Movie.objects.filter(title=items['title']).all()
+        for i in range(1):
+            movie = Movie.objects.filter(title=items['title'].strip().upper()).first()
+            cinema = Cinema.objects.filter(cinema_network='multiplex').first()
+            cinema_movie_items['cinema_id'] = cinema
+            cinema_movie_items['movie_id'] = movie
+            cinema_movie_items['link'] = response.url
+            yield cinema_movie_items
 
         yield items
-        # yield {items, cinema_movie_items}
